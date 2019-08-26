@@ -39,6 +39,14 @@ class UsersController < ApplicationController
     counts(@user)
   end
   
+  def likes
+    # memberなので、必ずusersテーブルの特定のレコードの主キーidを必要とする
+    @user = User.find(params[:id])
+    @microposts = @user.favorite_microposts.page(params[:page]) # @userがお気に入りしているmicropost一覧
+    counts(@user)
+  end
+
+
   private
   
   def user_params
